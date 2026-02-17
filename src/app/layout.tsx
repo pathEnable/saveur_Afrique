@@ -4,7 +4,9 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { FloatingCart } from "@/components/FloatingCart";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CartProvider } from "@/context/CartContext";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -39,12 +41,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppButton />
+          <CartProvider>
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <WhatsAppButton />
+            <FloatingCart />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>

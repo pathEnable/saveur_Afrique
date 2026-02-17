@@ -138,6 +138,16 @@
   }
 }
 
+@keyframes slow-zoom {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -188,6 +198,10 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s linear infinite alternate;
 }
 
 .animate-fade-in-up {
@@ -257,9 +271,6 @@
   .touch-target {
     min-height: 44px;
     min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   /* Active state for touch feedback */

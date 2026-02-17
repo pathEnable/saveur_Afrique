@@ -43,15 +43,15 @@ export function AboutSection() {
 
                         {/* Values — vertical on mobile, horizontal on desktop */}
                         <div className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-8">
-                            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-primary/5 border border-primary/10 touch-feedback">
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 touch-feedback">
                                 <Leaf className="h-5 w-5 text-secondary flex-shrink-0" />
                                 <span className="text-sm font-medium text-foreground">Ingrédients locaux</span>
                             </div>
-                            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-primary/5 border border-primary/10 touch-feedback">
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 touch-feedback">
                                 <Flame className="h-5 w-5 text-primary flex-shrink-0" />
                                 <span className="text-sm font-medium text-foreground">Cuisson au feu</span>
                             </div>
-                            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-primary/5 border border-primary/10 touch-feedback">
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 touch-feedback">
                                 <Heart className="h-5 w-5 text-red-500 flex-shrink-0" />
                                 <span className="text-sm font-medium text-foreground">Fait avec amour</span>
                             </div>

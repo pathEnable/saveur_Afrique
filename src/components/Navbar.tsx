@@ -2,16 +2,22 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu, X, UtensilsCrossed, Phone } from "lucide-react"
+import { Menu, X, UtensilsCrossed, Phone, Home, Utensils, Info, Mail, ShoppingBag, Instagram, Facebook, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/ThemeToggle"
 
 const navigation = [
-    { name: "Accueil", href: "/" },
-    { name: "Menu", href: "/menu" },
-    { name: "Commande", href: "/commande" },
-    { name: "À Propos", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "Accueil", href: "/", icon: <Home className="h-5 w-5" />, subtitle: "Bienvenue chez nous" },
+    { name: "Menu", href: "/menu", icon: <Utensils className="h-5 w-5" />, subtitle: "Découvrez nos saveurs" },
+    { name: "Commande", href: "/commande", icon: <ShoppingBag className="h-5 w-5" />, subtitle: "Commandez en ligne" },
+    { name: "À Propos", href: "/about", icon: <Info className="h-5 w-5" />, subtitle: "Notre histoire" },
+    { name: "Contact", href: "/contact", icon: <Mail className="h-5 w-5" />, subtitle: "Restons en contact" },
+]
+
+const socialLinks = [
+    { name: "Instagram", href: "#", icon: <Instagram className="h-5 w-5" /> },
+    { name: "Facebook", href: "#", icon: <Facebook className="h-5 w-5" /> },
+    { name: "WhatsApp", href: "https://wa.me/22960000000", icon: <MessageCircle className="h-5 w-5" /> },
 ]
 
 export function Navbar() {
@@ -37,7 +43,7 @@ export function Navbar() {
     return (
         <nav className={cn(
             "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-            scrolled
+            scrolled || isOpen
                 ? "glass shadow-lg border-b border-primary/10"
                 : "bg-transparent"
         )}>
@@ -91,7 +97,7 @@ export function Navbar() {
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className={cn(
-                            "md:hidden touch-target rounded-xl transition-all duration-300 relative z-[60]",
+                            "flex md:hidden items-center justify-center h-11 w-11 touch-target rounded-xl transition-all duration-300 relative z-[60]",
                             isOpen
                                 ? "text-foreground"
                                 : scrolled
@@ -116,65 +122,103 @@ export function Navbar() {
 
             {/* Mobile fullscreen menu */}
             <div className={cn(
-                "md:hidden fixed inset-0 z-50 transition-all duration-500",
+                "md:hidden fixed inset-0 z-50 transition-all duration-500 overflow-hidden",
                 isOpen ? "pointer-events-auto" : "pointer-events-none"
             )}>
                 {/* Backdrop */}
                 <div className={cn(
-                    "absolute inset-0 bg-background/95 backdrop-blur-xl transition-opacity duration-500",
+                    "absolute inset-0 bg-background/98 backdrop-blur-2xl transition-opacity duration-500",
                     isOpen ? "opacity-100" : "opacity-0"
                 )} />
 
-                {/* Menu content */}
+                {/* Decorative background element */}
                 <div className={cn(
-                    "relative h-full flex flex-col justify-center items-center px-8 transition-all duration-500",
-                    isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
-                )}>
-                    <div className="space-y-2 w-full max-w-sm stagger-children">
-                        {navigation.map((item) => (
+                    "absolute top-[-10%] right-[-10%] w-[70%] h-[40%] bg-primary/5 rounded-full blur-[100px] transition-all duration-1000 delay-300",
+                    isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+                )} />
+
+                {/* Menu content */}
+                <div className="relative h-full flex flex-col pt-20 pb-12 px-6">
+                    {/* Navigation items */}
+                    <div className="flex-1 overflow-y-auto pr-2 -mr-2 scrollbar-none">
+                        <div className="space-y-4 w-full">
+                            {navigation.map((item, idx) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className={cn(
+                                        "group flex items-center gap-4 p-4 rounded-2xl bg-muted/30 hover:bg-primary/5 transition-all duration-300 touch-feedback border border-transparent hover:border-primary/10",
+                                        "transition-all duration-500",
+                                        isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+                                    )}
+                                    style={{ transitionDelay: `${(idx + 1) * 100}ms` }}
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-background border border-border shadow-sm group-hover:scale-110 group-hover:border-primary/20 transition-all duration-300">
+                                        <span className="text-primary">{item.icon}</span>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-serif font-bold text-foreground group-hover:text-primary transition-colors">
+                                            {item.name}
+                                        </span>
+                                        <span className="text-xs text-muted-foreground">
+                                            {item.subtitle}
+                                        </span>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Footer section */}
+                    <div className="mt-8 space-y-8">
+                        {/* CTA */}
+                        <div className={cn(
+                            "transition-all duration-500 delay-[600ms]",
+                            isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        )}>
                             <Link
-                                key={item.name}
-                                href={item.href}
-                                className="block text-center text-2xl font-serif font-semibold text-foreground hover:text-primary py-4 rounded-2xl hover:bg-primary/5 transition-all duration-300 touch-feedback"
+                                href="/commande"
+                                className="block w-full text-center bg-primary text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-primary/25 hover:bg-primary/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                                 onClick={() => setIsOpen(false)}
                             >
-                                {item.name}
+                                <ShoppingBag className="h-5 w-5" />
+                                Passer commande
                             </Link>
-                        ))}
-                    </div>
+                        </div>
 
-                    {/* CTA Button */}
-                    <div className={cn(
-                        "mt-8 w-full max-w-sm transition-all duration-500 delay-300",
-                        isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                    )}>
-                        <Link
-                            href="/commande"
-                            className="block text-center bg-primary text-white py-4 rounded-full font-bold text-lg shadow-xl shadow-primary/25 hover:bg-primary/90 transition-all touch-feedback"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            🛒 Passer commande
-                        </Link>
-                    </div>
+                        {/* Social & Contact */}
+                        <div className={cn(
+                            "flex flex-col gap-6 transition-all duration-500 delay-[700ms]",
+                            isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        )}>
+                            <div className="flex items-center justify-between">
+                                <div className="flex gap-3">
+                                    {socialLinks.map((social) => (
+                                        <a
+                                            key={social.name}
+                                            href={social.href}
+                                            className="h-10 w-10 flex items-center justify-center rounded-xl bg-muted/50 text-foreground hover:bg-primary hover:text-white transition-all duration-300"
+                                            aria-label={social.name}
+                                        >
+                                            {social.icon}
+                                        </a>
+                                    ))}
+                                </div>
+                                <ThemeToggle className="text-foreground bg-muted/50 rounded-xl h-10 w-10 flex items-center justify-center" />
+                            </div>
 
-                    {/* Phone shortcut */}
-                    <a
-                        href="tel:+22960000000"
-                        className={cn(
-                            "mt-4 flex items-center gap-2 text-muted-foreground hover:text-primary transition-all duration-500 delay-[400ms]",
-                            isOpen ? "opacity-100" : "opacity-0"
-                        )}
-                    >
-                        <Phone className="h-4 w-4" />
-                        <span className="text-sm font-medium">+229 60 00 00 00</span>
-                    </a>
-
-                    {/* Theme toggle */}
-                    <div className={cn(
-                        "mt-4 transition-all duration-500 delay-[500ms]",
-                        isOpen ? "opacity-100" : "opacity-0"
-                    )}>
-                        <ThemeToggle className="text-foreground" />
+                            <div className="flex flex-col gap-2 p-4 rounded-xl bg-muted/20 border border-border/50">
+                                <a href="tel:+22960000000" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+                                    <Phone className="h-4 w-4" />
+                                    <span className="text-sm font-medium">+229 60 00 00 00</span>
+                                </a>
+                                <div className="flex items-center gap-3 text-muted-foreground">
+                                    <Mail className="h-4 w-4" />
+                                    <span className="text-sm">contact@saveursdafrique.bj</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

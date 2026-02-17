@@ -43,11 +43,11 @@ export function MenuPreview() {
                 </div>
 
                 {/* Cards — horizontal scrolling on mobile, grid on desktop */}
-                <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory -mx-5 px-5 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 scrollbar-none">
+                <div className="flex gap-4 md:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory -mx-5 px-5 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 scrollbar-none">
                     {dishes.map((dish, index) => (
                         <div
                             key={index}
-                            className="group min-w-[280px] sm:min-w-[300px] md:min-w-0 snap-center bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-border/50 md:hover:-translate-y-2 touch-feedback flex-shrink-0"
+                            className="group w-[85vw] sm:w-[320px] md:w-full snap-center bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-border/50 md:hover:-translate-y-2 touch-feedback flex-shrink-0"
                         >
                             <div className="relative h-48 sm:h-56 w-full overflow-hidden">
                                 <Image

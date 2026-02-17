@@ -55,9 +55,9 @@ export default function AboutPage() {
                 </div>
 
                 {/* Story section */}
-                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-6 md:p-12 border border-primary/10">
-                    <h2 className="text-xl md:text-2xl font-serif font-bold text-foreground mb-4 md:mb-6">Notre Histoire</h2>
-                    <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">
+                <div className="py-8 md:py-12 border-t border-border/50">
+                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-6 md:mb-8 text-center">Notre Histoire</h2>
+                    <div className="max-w-2xl mx-auto space-y-6 text-muted-foreground leading-relaxed text-base md:text-lg">
                         <p>
                             Fondé en 2018, Saveurs d&apos;Afrique est né de la passion d&apos;un chef local pour partager les trésors culinaires du Bénin avec le monde. Ce qui a commencé comme un petit maquis de quartier est devenu l&apos;un des restaurants les plus appréciés de Parakou.
                         </p>
