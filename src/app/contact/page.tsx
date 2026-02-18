@@ -23,7 +23,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 -mt-20 md:-mt-24 mb-10 md:mb-16 relative z-10">
                     {[
                         { icon: MapPin, label: "Adresse", value: "Quartier Albarika", sub: "Parakou, Bénin" },
-                        { icon: Phone, label: "Téléphone", value: "+229 60 00 00 00", sub: "WhatsApp dispo" },
+                        { icon: Phone, label: "Téléphone", value: "+229 01 41 58 57 80", sub: "WhatsApp dispo" },
                         { icon: Mail, label: "Email", value: "contact@", sub: "saveursdafrique.bj" },
                         { icon: Clock, label: "Horaires", value: "Lun - Dim", sub: "11h00 - 23h00" },
                     ].map((item, idx) => (
@@ -40,11 +40,11 @@ export default function ContactPage() {
 
                 {/* Quick actions — mobile only */}
                 <div className="flex gap-3 mb-8 md:hidden">
-                    <a href="tel:+22960000000" className="flex-1 inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3.5 rounded-full shadow-lg touch-feedback">
+                    <a href="tel:+2290141585780" className="flex-1 inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3.5 rounded-full shadow-lg touch-feedback">
                         <Phone className="h-4 w-4" />
                         Appeler
                     </a>
-                    <a href="https://wa.me/22960000000" className="flex-1 inline-flex items-center justify-center gap-2 bg-green-500 text-white font-semibold py-3.5 rounded-full shadow-lg touch-feedback">
+                    <a href="https://wa.me/2290141585780" className="flex-1 inline-flex items-center justify-center gap-2 bg-green-500 text-white font-semibold py-3.5 rounded-full shadow-lg touch-feedback">
                         <Mail className="h-4 w-4" />
                         WhatsApp
                     </a>

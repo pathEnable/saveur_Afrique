@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { User, Phone, MessageSquare, CheckCircle, ArrowLeft, ShoppingBag, MapPin, Trash2, Plus, Minus, Utensils } from "lucide-react"
+import { User, Phone, MessageSquare, CheckCircle, ArrowLeft, ShoppingBag, MapPin, Trash2, Plus, Minus, Utensils, Info } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
@@ -47,11 +47,11 @@ ${formData.message ? `\n*Note :* ${formData.message}` : ""}
 Merci !`
 
         const encodedMessage = encodeURIComponent(waMessage)
-        const waUrl = `https://wa.me/22967000000?text=${encodedMessage}` // Replace with actual number
+        const waUrl = `https://wa.me/2290141585780?text=${encodedMessage}` // Replace with actual number
 
         window.open(waUrl, "_blank")
         setIsSubmitted(true)
-        clearCart()
+        // clearCart() // We keep the cart in state for the success page's "Resend" button
     }
 
     if (items.length === 0 && !isSubmitted) {
@@ -75,6 +75,12 @@ Merci !`
     }
 
     if (isSubmitted) {
+        // Prepare the URL again for the "Send again" button
+        const orderDetails = items.length > 0 ? items.map(item => `- ${item.quantity}x ${item.name} (${item.price})`).join("\n") : "Détails non disponibles"
+        const total = totalPrice.toLocaleString()
+        const waMessage = `*RE-ENVOI DE COMMANDE* (Ignorez si déjà reçu) 👋\n\n*Détails :*\n${orderDetails}\n\n*Total :* ${total} FCFA\n*Nom :* ${formData.name}\n*Téléphone :* ${formData.phone}`
+        const waUrl = `https://wa.me/2290141585780?text=${encodeURIComponent(waMessage)}`
+
         return (
             <div className="bg-card rounded-3xl p-8 md:p-12 shadow-2xl border border-border/50 animate-fade-in-up relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-muted">
@@ -94,9 +100,28 @@ Merci !`
                         <h3 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
                             C&apos;est en route, <span className="text-primary">{formData.name}</span> !
                         </h3>
-                        <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-                            Votre commande a été transmise à notre équipe via WhatsApp. Préparez vos couverts, les saveurs arrivent !
-                        </p>
+                        <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-4 mb-8">
+                            <p className="text-amber-700 dark:text-amber-400 text-sm font-medium flex items-start gap-3">
+                                <Info className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                                <span>
+                                    **Important :** N&apos;oubliez pas d&apos;**envoyer** le message dans WhatsApp qui vient de s&apos;ouvrir. Sans l&apos;envoi du message, nous ne recevrons pas votre commande.
+                                </span>
+                            </p>
+                        </div>
+
+                        {/* Emergency Button */}
+                        <div className="mb-10 p-6 bg-muted/30 rounded-[2rem] border border-border/50 text-center md:text-left">
+                            <p className="text-sm text-muted-foreground mb-4 font-medium">Le message ne s&apos;est pas ouvert ou vous avez oublié de l&apos;envoyer ?</p>
+                            <a
+                                href={waUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-2xl shadow-lg transition-all active:scale-95"
+                            >
+                                <MessageSquare className="h-5 w-5" />
+                                Renvoyer sur WhatsApp
+                            </a>
+                        </div>
 
                         {/* Tracking Timeline */}
                         <div className="space-y-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-muted mb-10">
@@ -126,6 +151,10 @@ Merci !`
 
                         <Link
                             href="/"
+                            onClick={() => {
+                                setIsSubmitted(false)
+                                clearCart()
+                            }}
                             className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all duration-300 group"
                         >
                             <ArrowLeft className="h-5 w-5" />
@@ -149,7 +178,7 @@ Merci !`
                         </div>
                         <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
                             <p className="text-xs text-primary font-medium mb-1">Besoin d&apos;aide ?</p>
-                            <p className="text-sm font-bold">+229 67 00 00 00</p>
+                            <p className="text-sm font-bold">+229 01 41 58 57 80</p>
                         </div>
                     </div>
                 </div>

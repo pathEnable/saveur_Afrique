@@ -7,16 +7,47 @@ import { Flame, Star, Leaf, Clock, ChevronRight, Plus, ShoppingCart, Filter, Spa
 import { useCart } from "@/context/CartContext"
 import { ProductModal } from "@/components/ProductModal"
 
-const menuItems = [
+const foodExtras = [
+    { name: "Suppléments Piment", price: "+ 0 FCFA" },
+    { name: "Oignons Grillés", price: "+ 200 FCFA" },
+    { name: "Extra Sauce", price: "+ 300 FCFA" },
+]
+
+const drinkExtras = [
+    { name: "Glaçons Supplémentaires", price: "+ 0 FCFA" },
+    { name: "Tranche de Citron", price: "+ 100 FCFA" },
+    { name: "Sans Sucre", price: "+ 0 FCFA" },
+]
+
+interface MenuItem {
+    name: string
+    description: string
+    price: string
+    oldPrice?: string
+    tag?: string
+    icon?: React.ReactNode
+    isSignature?: boolean
+    image?: string
+    extras?: { name: string; price: string }[]
+}
+
+interface MenuCategory {
+    category: string
+    id: string
+    image: string
+    items: MenuItem[]
+}
+
+const menuItems: MenuCategory[] = [
     {
         category: "Entrées & Plats Locaux",
         id: "locaux",
         image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop",
         items: [
-            { name: "Igname Pilée", description: "Servie avec sauce arachide, graine ou légumes bio.", price: "3.000 FCFA", tag: "Tradition", icon: <Star className="h-3 w-3" />, isSignature: true, image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop" },
-            { name: "Pâte Rouge (Amiwo)", description: "Maïs fermenté rouge, poulet fermier ou poisson braisé.", price: "2.500 FCFA", tag: "Populaire", icon: <Flame className="h-3 w-3 text-orange-500" />, isSignature: true, image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=800&auto=format&fit=crop" },
-            { name: "Wagassi Frit", description: "Fromage peulh doré, épices locales et piment vert.", price: "1.500 FCFA", tag: "Classique" },
-            { name: "Salade Africaine", description: "Mélange croquant de crudités et avocat de saison.", price: "2.000 FCFA", tag: "Veggie", icon: <Leaf className="h-3 w-3 text-green-500" /> },
+            { name: "Igname Pilée", description: "Servie avec sauce arachide, graine ou légumes bio.", price: "3.000 FCFA", tag: "Tradition", icon: <Star className="h-3 w-3" />, isSignature: true, image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
+            { name: "Pâte Rouge (Amiwo)", description: "Maïs fermenté rouge, poulet fermier ou poisson braisé.", price: "2.500 FCFA", tag: "Populaire", icon: <Flame className="h-3 w-3 text-orange-500" />, isSignature: true, image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
+            { name: "Wagassi Frit", description: "Fromage peulh doré, épices locales et piment vert.", price: "1.500 FCFA", tag: "Classique", image: "https://images.unsplash.com/photo-1559181567-c3190ca9959b?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
+            { name: "Salade Africaine", description: "Mélange croquant de crudités et avocat de saison.", price: "2.000 FCFA", tag: "Veggie", icon: <Leaf className="h-3 w-3 text-green-500" />, image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop", extras: [{ name: "Extra Avocat", price: "+ 500 FCFA" }] },
         ]
     },
     {
@@ -24,10 +55,10 @@ const menuItems = [
         id: "grillades",
         image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop",
         items: [
-            { name: "Poulet Bicyclette Braisé", description: "Mariné 24h aux épices secrètes du chef.", price: "8.000 FCFA", tag: "Signature", icon: <Star className="h-3 w-3" />, isSignature: true, image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop" },
-            { name: "Capitaine à la Braise", description: "Poisson frais du jour grillé au feu de bois.", price: "6.000 FCFA", tag: "Frais" },
-            { name: "Brochettes de Bœuf", description: "Tendre bœuf mariné, servi avec piment sec.", price: "2.500 FCFA", tag: "Incontournable" },
-            { name: "Lapin Braisé", description: "Une spécialité raffinée (sur commande).", price: "7.000 FCFA", tag: "Spécialité", icon: <Clock className="h-3 w-3" /> },
+            { name: "Poulet Bicyclette Braisé", description: "Mariné 24h aux épices secrètes du chef.", price: "6.400 FCFA", oldPrice: "8.000 FCFA", tag: "PROMO -20%", icon: <Flame className="h-3 w-3 text-white" />, isSignature: true, image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
+            { name: "Capitaine à la Braise", description: "Poisson frais du jour grillé au feu de bois.", price: "6.000 FCFA", tag: "Frais", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
+            { name: "Brochettes de Bœuf", description: "Tendre bœuf mariné, servi avec piment sec.", price: "2.500 FCFA", tag: "Incontournable", image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
+            { name: "Lapin Braisé", description: "Une spécialité raffinée (sur commande).", price: "7.000 FCFA", tag: "Spécialité", icon: <Clock className="h-3 w-3" />, image: "https://images.unsplash.com/photo-1587593817645-425da8eddec2?q=80&w=800&auto=format&fit=crop", extras: foodExtras },
         ]
     },
     {
@@ -35,10 +66,10 @@ const menuItems = [
         id: "accompagnements",
         image: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop",
         items: [
-            { name: "Alloco", description: "Bananes plantains mûres, dorées à souhait.", price: "1.000 FCFA" },
-            { name: "Attiéké", description: "Semoule de manioc fine, origine Côte d'Ivoire.", price: "1.000 FCFA" },
-            { name: "Frites de Patate Douce", description: "Croustillantes et naturellement sucrées.", price: "1.000 FCFA" },
-            { name: "Riz Jollof", description: "Riz épicé à la tomate, façon West Africa.", price: "1.000 FCFA" },
+            { name: "Alloco", description: "Bananes plantains mûres, dorées à souhait.", price: "1.000 FCFA", image: "https://images.unsplash.com/photo-1598514983318-2911fac99399?q=80&w=800&auto=format&fit=crop", extras: [{ name: "Piment Vert", price: "+ 0 FCFA" }] },
+            { name: "Attiéké", description: "Semoule de manioc fine, origine Côte d'Ivoire.", price: "1.000 FCFA", image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?q=80&w=800&auto=format&fit=crop", extras: [{ name: "Huile de Palme", price: "+ 100 FCFA" }] },
+            { name: "Frites de Patate Douce", description: "Croustillantes et naturellement sucrées.", price: "1.000 FCFA", image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=800&auto=format&fit=crop" },
+            { name: "Riz Jollof", description: "Riz épicé à la tomate, façon West Africa.", price: "1.000 FCFA", image: "https://images.unsplash.com/photo-1512058560374-3a7b5b5f4485?q=80&w=800&auto=format&fit=crop", extras: [{ name: "Œuf Bouilli", price: "+ 200 FCFA" }] },
         ]
     },
     {
@@ -46,9 +77,9 @@ const menuItems = [
         id: "boissons",
         image: "https://images.unsplash.com/photo-1544145945-f904253db0ad?q=80&w=800&auto=format&fit=crop",
         items: [
-            { name: "Bissap Maison", description: "Infusion de fleurs d'hibiscus et menthe fraîche.", price: "500 FCFA" },
-            { name: "Jus d'Ananas Pur", description: "Ananas pain de sucre de Cotonou sanz sucre ajouté.", price: "500 FCFA" },
-            { name: "Dèguè au Lait", description: "Moulé de mil au yaourt crémeux traditionnel.", price: "1.000 FCFA", tag: "Doux" },
+            { name: "Bissap Maison", description: "Infusion de fleurs d'hibiscus et menthe fraîche.", price: "500 FCFA", image: "https://images.unsplash.com/photo-1556881286-fc6915169721?q=80&w=800&auto=format&fit=crop", extras: drinkExtras },
+            { name: "Jus d'Ananas Pure", description: "Ananas pain de sucre de Cotonou sanz sucre ajouté.", price: "500 FCFA", image: "https://images.unsplash.com/photo-1589733593533-9366367756f1?q=80&w=800&auto=format&fit=crop", extras: drinkExtras },
+            { name: "Dèguè au Lait", description: "Moulé de mil au yaourt crémeux traditionnel.", price: "1.000 FCFA", tag: "Doux", image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=800&auto=format&fit=crop", extras: [{ name: "Extra Lait Couconcentré", price: "+ 200 FCFA" }] },
         ]
     }
 ]
@@ -262,45 +293,60 @@ export default function MenuPage() {
                         </div>
 
                         {/* Items Grid - Dynamic Columns */}
-                        <div className="grid gap-8 md:grid-cols-2">
+                        <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-8">
                             {section.items.map((item, itemIdx) => (
                                 <div
                                     key={itemIdx}
                                     onClick={() => setSelectedProduct(item)}
-                                    className="group relative p-8 rounded-[2.5rem] bg-card/40 border border-primary/5 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2 touch-feedback animate-in fade-in slide-in-from-bottom-8 cursor-pointer overflow-hidden"
+                                    className="group relative flex flex-col sm:flex-row overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-card/40 border border-primary/5 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 touch-feedback animate-in fade-in slide-in-from-bottom-8 cursor-pointer"
                                     style={{ animationDelay: `${itemIdx * 50}ms` }}
                                 >
-                                    {/* Glass reflection */}
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -translate-y-16 translate-x-16 group-hover:bg-primary/10 transition-colors" />
+                                    {/* Item Image */}
+                                    <div className="relative w-full sm:w-48 h-32 sm:h-auto flex-shrink-0">
+                                        <Image
+                                            src={item.image || "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=400&auto=format&fit=crop"}
+                                            alt={item.name}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent sm:bg-gradient-to-r" />
+                                    </div>
 
-                                    <div className="relative space-y-4">
-                                        <div className="flex justify-between items-start">
-                                            <div className="space-y-2">
-                                                {item.tag && (
-                                                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/5 px-3 py-1 rounded-full">
-                                                        {item.icon}
-                                                        {item.tag}
+                                    {/* Item Content */}
+                                    <div className="flex-1 p-3 sm:p-8 flex flex-col justify-between">
+                                        <div className="space-y-1.5 sm:space-y-3">
+                                            <div className="flex flex-col sm:flex-row justify-between items-start gap-1">
+                                                <div className="space-y-0.5 sm:space-y-1">
+                                                    {item.tag && (
+                                                        <span className="inline-flex items-center gap-1 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                                                            {item.icon}
+                                                            {item.tag}
+                                                        </span>
+                                                    )}
+                                                    <h3 className="text-sm sm:text-2xl font-serif font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1 sm:line-clamp-none">
+                                                        {item.name}
+                                                    </h3>
+                                                </div>
+                                                <div className="text-left sm:text-right flex flex-col items-start sm:items-end">
+                                                    {item.oldPrice && (
+                                                        <span className="block text-[9px] sm:text-xs text-muted-foreground line-through opacity-60">
+                                                            {item.oldPrice}
+                                                        </span>
+                                                    )}
+                                                    <span className="text-xs sm:text-xl font-bold text-primary tabular-nums">
+                                                        {item.price}
                                                     </span>
-                                                )}
-                                                <h3 className="text-2xl font-serif font-bold text-foreground group-hover:text-primary transition-colors pr-8">
-                                                    {item.name}
-                                                </h3>
+                                                </div>
                                             </div>
-                                            <div className="pt-1">
-                                                <span className="text-xl font-bold text-primary tabular-nums">
-                                                    {item.price}
-                                                </span>
-                                            </div>
+                                            <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed italic line-clamp-2">
+                                                {item.description}
+                                            </p>
                                         </div>
 
-                                        <p className="text-muted-foreground text-sm leading-relaxed max-w-sm pb-4">
-                                            {item.description}
-                                        </p>
-
-                                        <div className="flex items-center gap-3 pt-2">
+                                        <div className="flex items-center gap-2 pt-2 sm:pt-4">
                                             <div className="h-px flex-1 bg-border/50 group-hover:bg-primary/20 transition-colors" />
-                                            <div className="h-12 w-12 rounded-2xl bg-muted group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-500 shadow-sm group-hover:shadow-primary/30 group-hover:rotate-6">
-                                                <Plus className="h-6 w-6" />
+                                            <div className="h-7 w-7 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-muted group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-500 shadow-sm group-hover:shadow-primary/30">
+                                                <Plus className="h-4 w-4 sm:h-5 sm:w-5" />
                                             </div>
                                         </div>
                                     </div>

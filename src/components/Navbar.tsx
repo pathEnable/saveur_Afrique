@@ -17,7 +17,7 @@ const navigation = [
 const socialLinks = [
     { name: "Instagram", href: "#", icon: <Instagram className="h-5 w-5" /> },
     { name: "Facebook", href: "#", icon: <Facebook className="h-5 w-5" /> },
-    { name: "WhatsApp", href: "https://wa.me/22960000000", icon: <MessageCircle className="h-5 w-5" /> },
+    { name: "WhatsApp", href: "https://wa.me/2290141585780", icon: <MessageCircle className="h-5 w-5" /> },
 ]
 
 export function Navbar() {
@@ -209,9 +209,9 @@ export function Navbar() {
                             </div>
 
                             <div className="flex flex-col gap-2 p-4 rounded-xl bg-muted/20 border border-border/50">
-                                <a href="tel:+22960000000" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+                                <a href="tel:+2290141585780" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
                                     <Phone className="h-4 w-4" />
-                                    <span className="text-sm font-medium">+229 60 00 00 00</span>
+                                    <span className="text-sm font-medium">+229 01 41 58 57 80</span>
                                 </a>
                                 <div className="flex items-center gap-3 text-muted-foreground">
                                     <Mail className="h-4 w-4" />
